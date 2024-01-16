@@ -9,7 +9,7 @@ COPY src ./src
 # Build a release artifact.
 RUN mvn package -DskipTests
 
-FROM eclipse-temurin:11-jre-alpine
+FROM eclipse-temurin:21-jre-alpine
 
 # Copy the jar to the production image from the builder stage.
 COPY --from=builder /app/target/payment-service-*.jar /payment-service.jar
