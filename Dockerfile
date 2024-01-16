@@ -1,5 +1,6 @@
 
-FROM maven:3.9.3-eclipse-temurin-11-alpine as builder
+FROM maven:3.9.6-amazoncorretto-21-al2023 as builder
+
 
 # Copy local code to the container image.
 WORKDIR /app
@@ -9,10 +10,10 @@ COPY src ./src
 # Build a release artifact.
 RUN mvn package -DskipTests
 
-FROM eclipse-temurin:11-jre-alpine
+FROM 21-alpine3.17
 
 # Copy the jar to the production image from the builder stage.
-COPY --from=builder /app/target/payment-service-*.jar /payment-service.jar
+COPY --from=builder /app/target/productAPI*.jar /productAPI.jar
 
 # Run the web service on container startup.
 CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/productAPI.jar"]
