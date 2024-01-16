@@ -10,7 +10,7 @@ COPY src ./src
 # Build a release artifact.
 RUN mvn package -DskipTests
 
-FROM 21-alpine3.17
+FROM amazoncorretto:21-alpine3.17
 
 # Copy the jar to the production image from the builder stage.
 COPY --from=builder /app/target/productAPI*.jar /productAPI.jar
